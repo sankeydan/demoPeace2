@@ -3,6 +3,9 @@
 rm(list= ls())
 library(ggplot2)
 library(gridExtra)
+  library(grid)
+  library(gtable)
+  library(scales)
 }
 
 ### FUNCTIONS
@@ -307,9 +310,7 @@ lines( outs[,3]~c(1:nrow(outs)/nrow(outs)), col  = 3)
 
   }
 
-  library(grid)
-  library(gtable)
-  library(scales)
+
   p <- ggplot( ggli , aes ( var1 , var2 ,fill=Outcome))+
     geom_tile () +
     #facet_grid(rows = vars(dv) ,cols= vars(dc))+
