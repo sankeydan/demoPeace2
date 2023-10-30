@@ -18,3 +18,6 @@
 <h4> Open the Worksheet.r script in RStudio. </h4>
 <h4> Run the code line-by-line to generate plots. </h4>
 <h4> Run Time: Expect the demo to take approximately 10 minutes on a standard desktop or laptop computer. </h4>
+<p style="font-size:32px; font-weight:bold;">Heading 1 Equivalent</p>
+<p style="font-size:24px; font-weight:bold;">Heading 2 Equivalent</p>
+<p style="font-size:18px; font-weight:bold;">Heading 3 Equivalent</p>
