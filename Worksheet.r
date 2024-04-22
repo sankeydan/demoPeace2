@@ -328,51 +328,52 @@ lines( outs[,3]~c(1:nrow(outs)/nrow(outs)), col  = 3)
 }
 p
 
-# Figure S1
+## Figure S1
 {
-mat1 = expand.grid( lam = c(0.3,0.7), N = c(20, 30), dc = 0.5, dv = seq(0,1,0.01))
-mat2 = expand.grid( lam = c(0.3,0.7), N = c(20, 30), dc = seq(0,1,0.01), dv = 0.5)
-VLs = NULL
-VFs = NULL
-for ( i in 1:nrow(mat1)){
-  #i=41
-  v = VLCL(C = 2 , dc = mat1$dc[i], dv = mat1$dv [i] , lam = mat1$lam[i])
-  v = v/mat1$N[i]
-  VLs = c ( VLs , v["VL"])
-  VFs = c ( VFs , v["VF"])
-  print( length(VLs))
-  print( length(VFs))
-}
-mat1 = rbind( mat1, mat1)
-mat1$V = c( VLs, VFs)
-mat1$Class  = rep(c("leader" , "follower"),each = 404)
-mat1$lam = as.factor(mat1$lam)
-g1 = ggplot ( mat1 , aes ( y=V , x=dv))+
-  geom_line(mapping = aes(linetype = lam, color = Class),linewidth = 1.5)+
-  facet_grid(~N)+
-  scale_x_continuous(sec.axis = sec_axis(~ . , name = "N", breaks = NULL, labels = NULL))+
-  theme_classic( base_size = 15)
-CLs = NULL
-CFs = NULL
-for ( i in 1:nrow(mat2)){
-  #i=1
-  C = VLCL(C = 2 , dc = mat2$dc[i], dv = mat2$dv [i] , lam = mat2$lam[i])
-  C = C/mat2$N[i]
-  CLs = c ( CLs , C["CL"])
-  CFs = c ( CFs , C["CF"])
-  print( length(CLs))
-  print( length(CFs))
-}
-mat2 = rbind( mat2, mat2)
-mat2$C = c( CLs, CFs)
-mat2$Class  = rep(c("leader" , "follower"),each = 404)
-mat2$lam = as.factor(mat2$lam)
-g2 = ggplot ( mat2 , aes ( y=C , x=dc))+
-  geom_line(mapping = aes(linetype = lam, color = Class),linewidth=1.5)+
-  facet_grid(~N)+
-  labs(y = "C = 2V")+
-  scale_x_continuous(sec.axis = sec_axis(~ . , name = "N", breaks = NULL, labels = NULL))+
-  theme_classic( base_size = 15)
+  mat1 = expand.grid( lam = c(0.3,0.7), N = c(5,10,20,30,50,100), dc = 0.5, dv = seq(0,1,0.01))
+  mat2 = expand.grid( lam = c(0.3,0.7), N = c(5,10,20,30,50,100), dc = seq(0,1,0.01), dv = 0.5)
+  VLs = NULL
+  VFs = NULL
+  for ( i in 1:nrow(mat1)){
+    #i=41
+    v = VLCL(C = 2 , dc = mat1$dc[i], dv = mat1$dv [i] , lam = mat1$lam[i])
+    v = v/mat1$N[i]
+    VLs = c ( VLs , v["VL"])
+    VFs = c ( VFs , v["VF"])
+    print( length(VLs))
+    print( length(VFs))
+  }
+  mat1 = rbind( mat1, mat1)
+  mat1$V = c( VLs, VFs)
+  mat1$Class  = rep(c("leader" , "follower"),each = 1212)
+  mat1$lam = as.factor(mat1$lam)
+  g1 = ggplot ( mat1 , aes ( y=V , x=dv))+
+    geom_line(mapping = aes(linetype = lam, color = Class),linewidth = 1.5)+
+    facet_wrap(~N, scales="free_y")+
+    scale_x_continuous(sec.axis = sec_axis(~ . , name = "N", breaks = NULL, labels = NULL))+
+    theme_classic( base_size = 17)
+  CLs = NULL
+  CFs = NULL
+  for ( i in 1:nrow(mat2)){
+    #i=1
+    C = VLCL(C = 2 , dc = mat2$dc[i], dv = mat2$dv [i] , lam = mat2$lam[i])
+    C = C/mat2$N[i]
+    CLs = c ( CLs , C["CL"])
+    CFs = c ( CFs , C["CF"])
+    print( length(CLs))
+    print( length(CFs))
+  }
+  mat2 = rbind( mat2, mat2)
+  mat2$C = c( CLs, CFs)
+  mat2$Class  = rep(c("leader" , "follower"),each = 1212)
+  mat2$lam = as.factor(mat2$lam)
+  g2 = ggplot ( mat2 , aes ( y=C , x=dc))+
+    geom_line(mapping = aes(linetype = lam, color = Class),linewidth=1.5)+
+    facet_wrap(~N, scales="free_y")+
+    labs(y = "C = 2V")+
+    scale_x_continuous(sec.axis = sec_axis(~ . , name = "N", breaks = NULL, labels = NULL))+
+    theme_classic( base_size = 17)
+
 }
 grid.arrange(grobs = list( g1,g2),ncol=1)
 
